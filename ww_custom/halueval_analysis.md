@@ -43,7 +43,20 @@ HaluEval은 방대한 양의 환각 평가 데이터를 만들기 위해 ChatGPT
 - **보완책:** 이를 보완하기 위해 5,000개의 일반 사용자 질의응답(Alpaca 베이스) 데이터는 사람이 직접 개입(Human-annotated)하여 검증하고 라벨링하는 방식을 혼용하여 신뢰도를 높였습니다.
 
 ## 7. Ground Data (Seed Data)의 의미
-HaluEval에서 'Ground Data' (또는 Seed Data)는 모델의 환각 생성 및 평가를 위한 기준점이 되는 **'진실만이 담긴 원본 데이터'**입니다. 
+
+HaluEval에서 'Ground Data' (또는 Seed Data)는 모델의 환각 생성 및 평가를 위한 기준점이 되는 **'진실만이 담긴 원본 데이터'**입니다.
+
 - **출처:** HotpotQA (질의응답), OpenDialKG (대화), CNN/DailyMail (요약) 등 학계에서 이미 사실관계가 검증되고 널리 쓰이는 고품질 데이터셋을 그대로 가져옵니다.
-- **역할:** ChatGPT가 환각(거짓)을 지어내기 위해서는 먼저 '진짜 사실'이 무엇인지 알아야 합니다. Ground Data는 ChatGPT에게 "이것이 변하지 않는 진실(Knowledge)이고 정답(Right Answer)이야. 자, 이제 이것과 *다르게* 거짓말을 해봐"라고 기준을 제시하는 역할을 합니다.
+- **역할:** ChatGPT가 환각(거짓)을 지어내기 위해서는 먼저 '진짜 사실'이 무엇인지 알아야 합니다. Ground Data는 ChatGPT에게 "이것이 변하지 않는 진실(Knowledge)이고 정답(Right Answer)이야. 자, 이제 이것과 _다르게_ 거짓말을 해봐"라고 기준을 제시하는 역할을 합니다.
 - **평가 시:** 최종 테스트에서 50%의 확률로 모델에게 던져지는 "환각이 없는 정상적인 답변"이 바로 이 Ground Data의 정답(Right Answer)입니다.
+
+## 8. 지식 테스트(Knowledge Test)와의 차별점: RAG의 필요성 여부
+
+평가 대상인 LLM이 Ground Data를 학습하지 않았을 수 있다는 중요한 지적이 있습니다. LLM이 해당 사실을 모른다면 환각을 탐지하는 것이 아니라, 단순히 지식의 유무(Knowledge Test)를 묻는 것이 아니냐는 의문입니다.
+
+HaluEval은 이 맹점을 **프롬프트 내 지식 주입(In-context Knowledge Provision)**을 통해 해결합니다.
+
+- 평가 스크립트(`evaluate.py`)와 지시문(`qa_evaluation_instruction.txt`)을 보면, 모델에게 질문과 답변만 덜렁 주지 않습니다.
+- **"#Knowledge#: [실제 위키백과 등 본문]"** 이라는 형태로 평가를 위한 완벽한 지식(Ground Truth)을 프롬프트 안에 함께 제공합니다.
+- 즉, 모델은 자신의 내부 지식(Parametric Memory)에 의존하여 진실 게임을 하는 것이 아니라, **방금 주어진 참고 지식(Knowledge)을 읽고, 그 지식에 비추어 볼 때 이 답변이 사실과 일치하는지(No Hallucination) 아니면 지식과 모순되거나 지식 범위를 벗어난 허튼소리(Yes Hallucination)를 하는지 판별**하는 '독해 및 논리적 대조 능력'을 평가받게 됩니다.
+- 그러므로 별도의 RAG(Retrieval-Augmented Generation) 파이프라인이나 사전 학습 없이도, HaluEval 평가 프롬프트 자체가 이미 미니 RAG의 "검색된 문서를 주입하는 단계"와 똑같은 역할을 수행하고 있습니다.
