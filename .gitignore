@@ -1,0 +1,16 @@
+# Large seed data files (download separately)
+ww_custom/ground_truth_data/
+
+# Excel temp files
+~$*.xlsx
+
+# Python
+__pycache__/
+*.pyc
+
+# IDE
+.idea/
+.vscode/
+
+# Claude Code
+.claude/
