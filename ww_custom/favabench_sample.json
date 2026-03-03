@@ -1,0 +1,18 @@
+[
+  {
+    "prompt": "Explain how neural networks work in Layman's terms ",
+    "output": "A neural network is a computer program designed to mimic how the human brain works—made of many small, simple units called artificial neurons that are connected and work together to perform complex tasks. These neurons receive input, process it using mathematical functions, and then pass on the result to other neurons in the network.\n\nTraining a neural network with a large amount of data can learn to recognize patterns and make decisions based on the inputs it receives. The more data it's exposed to and the more it trains, the better it becomes at making accurate predictions and decisions.\n\nIn Summary, A neural network is a highly sophisticated decision-making machine that can learn and improve over time.",
+    "annotated": "A neural network is a computer program designed to mimic how the human brain works—made of many small, simple units called artificial neurons that are connected and work together to perform complex tasks. These neurons receive input, process it using mathematical functions, and then pass on the result to other neurons in the network.Training a neural network with a large amount of data can learn to recognize patterns and make decisions based on the inputs it receives. The more data it's exposed to and the more it trains, the better it becomes at making accurate predictions and decisions.In Summary, A neural network is a highly sophisticated decision-making machine that can learn and improve over time.",
+    "subject": "neural networks",
+    "dataset": "open-assistant",
+    "model": "chatgpt"
+  },
+  {
+    "prompt": "Explain Amdavad ni Gufa, including information about location, country",
+    "output": "Amdavad ni Gufa is an underground art gallery in Ahmedabad, Gujarat, India. It was designed by the renowned architect Balkrishna Doshi and is located on the banks of the Sabarmati River.The gallery is known for its unique design, which resembles a cave or a cave-like structure. It is made up of twisted, curved, and uneven shapes that create an immersive and complex experience for visitors.Amdavad ni Gufa is home to various exhibitions and installations that showcase the works of local and international artists. Its aim is to provide a platform for contemporary art and encourage creativity and innovation in the field.The gallery is a popular tourist attraction and has won several architecture and design awards. It is open to the public every day except Monday and admission is free.",
+    "annotated": "Amdavad ni Gufa is an underground art gallery in Ahmedabad, Gujarat, India. It was designed by the renowned architect Balkrishna Doshi and <subjective><delete>is located on the banks of the Sabarmati River.</delete></subjective>The gallery is known for its unique design, which resembles a cave or a cave-like structure. It is made up of twisted, curved, and uneven shapes that create an immersive and complex experience for visitors.Amdavad ni Gufa is home to various exhibitions and installations that showcase the works of local and international artists. Its aim is to provide a platform for contemporary art and encourage creativity and innovation in the field.<unverifiable><delete>The gallery is a popular tourist attraction and has won several architecture and design awards.</delete></unverifiable> <relation><delete>It is open to the public every day except Monday and admission is free.</delete><mark>it is open to the public every day except monday and public holidays and admission is free.</mark></relation>",
+    "subject": "amdavad ni gufa",
+    "dataset": "webnlg",
+    "model": "chatgpt"
+  }
+]
